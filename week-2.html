@@ -183,7 +183,6 @@ source ~/.zshrc</code></pre>
       <p>This program demonstrates variables, data types, control structures (if-else), loops, and functions:</p>
       
       <pre class="code"><code>void main() {
-  // Variables and Data Types
   int age = 25;
   double height = 5.9;
   String name = 'Prashanth kumar';
@@ -196,24 +195,20 @@ source ~/.zshrc</code></pre>
   print('Height: $height');
   print('Is a student: $isStudent');
 
-  // Control Structure: if-else
   if (age > 18) {
     print('$name is an adult.');
   } else {
     print('$name is a minor.');
   }
 
-  // Loops: for loop
   print('Counting from 1 to 5:');
   for (int i = 1; i <= 5; i++) {
     print(i);
   }
 
-  // Functions
   greet(name);
 }
 
-// Function definition
 void greet(String personName) {
   print('Hello, $personName! Welcome to Dart.');
 }

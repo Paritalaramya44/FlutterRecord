@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// 🔹 Reusable Button Widget
 /// Created by: Prashanth kumar (Roll No: 238W1A12D4)
 class CustomButton extends StatelessWidget {
   final String text;
@@ -74,7 +73,6 @@ class CustomButton extends StatelessWidget {
   }
 }
 
-/// 🔹 Using the Reusable Button
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -140,7 +138,6 @@ class HomeScreen extends StatelessWidget {
 
 void main() => runApp(MyApp());
 
-/// App with Custom Theme
 /// Created by: Prashanth kumar (Roll No: 238W1A12D4)
 class MyApp extends StatelessWidget {
   @override
@@ -243,7 +240,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// All Animation Classes Demo
 /// Created by: Prashanth kumar (Roll No: 238W1A12D4)
 class AllAnimationsDemo extends StatefulWidget {
   @override
@@ -268,7 +264,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
           children: [
             SizedBox(height: 20),
 
-            // 🔹 Student Info
             Text(
               "Prashanth kumar",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -279,7 +274,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
             ),
             SizedBox(height: 30),
 
-            // 🔹 1. Fade (AnimatedOpacity)
             AnimatedOpacity(
               opacity: _visible ? 1.0 : 0.0,
               duration: Duration(seconds: 1),
@@ -288,7 +282,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
 
             SizedBox(height: 20),
 
-            // 🔹 2. Slide (AnimatedSlide)
             AnimatedSlide(
               offset: _slided ? Offset(1, 0) : Offset(0, 0),
               duration: Duration(seconds: 1),
@@ -301,7 +294,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
 
             SizedBox(height: 20),
 
-            // 🔹 3. Scale (AnimatedScale)
             AnimatedScale(
               scale: _scale,
               duration: Duration(seconds: 1),
@@ -310,7 +302,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
 
             SizedBox(height: 20),
 
-            // 🔹 4. Rotation (AnimatedRotation)
             AnimatedRotation(
               turns: _rotation,
               duration: Duration(seconds: 1),
@@ -319,7 +310,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
 
             SizedBox(height: 20),
 
-            // 🔹 5. Position (AnimatedPositioned) inside Stack
             Container(
               height: 120,
               color: Colors.grey[300],
@@ -341,7 +331,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
 
             SizedBox(height: 20),
 
-            // 🔹 6. Container (AnimatedContainer)
             AnimatedContainer(
               duration: Duration(seconds: 1),
               curve: Curves.easeInOut,
@@ -352,7 +341,6 @@ class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
 
             SizedBox(height: 30),
 
-            // 🔹 Buttons to trigger animations
             Wrap(
               spacing: 10,
               children: [

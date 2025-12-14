@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Week 9 — Testing & Debugging</title>
+  <title>Week 9 — Fetch Data from REST API</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -11,38 +11,251 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 9</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">← Index</a>
+      <a href="index.html">⌂ Home</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 9 — Testing & Debugging</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 9 — Fetch Data from REST API</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Unit and widget testing.</li>
-        <li>Using `flutter test`.</li>
-        <li>Debugging with DevTools.</li>
+        <li>Fetch data from public REST APIs using the http package</li>
+        <li>Parse JSON responses and handle API data</li>
+        <li>Implement error handling for network requests</li>
+        <li>Display API data in Flutter widgets with loading states</li>
       </ol>
     </section>
 
+    <!-- HTTP PACKAGE SETUP -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>test('adds one to input values', () {
-  final calculator = Calculator();
-  expect(calculator.addOne(2), 3);
-});
+      <h3>Step 1: Add HTTP Dependency</h3>
+      
+      <p>Before making HTTP requests, you need to add the <code>http</code> package to your project. This package provides methods for making GET, POST, and other HTTP requests.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">pubspec.yaml Configuration:</h4>
+      <pre class="code"><code>dependencies:
+  flutter:
+    sdk: flutter
+  
+  http: ^1.2.0  # Add at line 42 (Check latest version on pub.dev)
+</code></pre>
+
+      <p style="margin-top: 12px;"><strong>Note:</strong> After adding the dependency, run <code>flutter pub get</code> in the terminal to download the package.</p>
+    </section>
+
+    <!-- BASIC HTTP REQUEST -->
+    <section class="content-block">
+      <h3>Step 2: Fetch Data from REST API</h3>
+      
+      <p>This example demonstrates how to fetch data from a REST API, parse JSON response, and display it in your Flutter app. It includes proper error handling and loading states for a better user experience.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>http.get():</strong> Makes a GET request to fetch data from an API</li>
+        <li><strong>async/await:</strong> Handles asynchronous operations</li>
+        <li><strong>jsonDecode():</strong> Parses JSON string into Dart objects</li>
+        <li><strong>setState():</strong> Updates UI when data is received</li>
+        <li><strong>try-catch:</strong> Handles network errors gracefully</li>
+      </ul>
+
+      <pre class="code"><code>import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    );
+  }
+}
+
+/// Created by: Prashanth kumar (Roll No: 238W1A12D4)
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String message = "Loading...";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/posts/1');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'User-Agent': 'Mozilla/5.0',
+          'Accept': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        setState(() {
+          message = "Title: ${jsonData['title']}\n\nCreated by: Prashanth kumar (Roll No: 238W1A12D4)";
+        });
+      } else {
+        setState(() {
+          message = "Error: ${response.statusCode}";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        message = "Failed to load data: $e";
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('HTTP Example'),
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">How It Works:</h4>
+      <ol>
+        <li><strong>initState():</strong> Called when widget is first created, triggers data fetch immediately</li>
+        <li><strong>Uri.parse():</strong> Converts string URL into Uri object required by http.get()</li>
+        <li><strong>await http.get():</strong> Waits for API response before continuing execution</li>
+        <li><strong>response.statusCode:</strong> Checks if request was successful (200 = OK)</li>
+        <li><strong>jsonDecode():</strong> Converts JSON string to Map for easy access</li>
+        <li><strong>setState():</strong> Updates the UI with fetched data</li>
+        <li><strong>try-catch:</strong> Catches network errors and displays error messages</li>
+      </ol>
+
+      <div class="output" style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin: 16px 0; text-align: center;">
+        <img src="outputs/week-9/http.png" alt="HTTP API Example Output" style="max-width: 500px; width: 100%; height: auto; border-radius: 4px;">
+      </div>
+    </section>
+
+    <!-- API EXAMPLES -->
+    <section class="content-block">
+      <h3>Popular Public APIs for Testing</h3>
+      
+      <p>Here are some free public APIs you can use to test HTTP requests in your Flutter applications:</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">1. JSONPlaceholder (Fake REST API)</h4>
+      <pre class="code"><code>https://jsonplaceholder.typicode.com/posts/1
+
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident",
+  "body": "quia et suscipit..."
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">2. Dog CEO (Random Dog Images)</h4>
+      <pre class="code"><code>https://dog.ceo/api/breeds/image/random
+
+https://images.dog.ceo/breeds/husky/n02110185_1469.jpg
+
+{
+  "message": "https://images.dog.ceo/breeds/husky/n02110185_1469.jpg",
+  "status": "success"
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">3. DummyJSON (E-commerce Data)</h4>
+      <pre class="code"><code>https://dummyjson.com/products/1
+
+{
+  "id": 1,
+  "title": "iPhone 9",
+  "price": 549,
+  "description": "An apple mobile which is nothing like apple"
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">4. ZenQuotes (Inspirational Quotes)</h4>
+      <pre class="code"><code>https://zenquotes.io/api/random
+
+[
+  {
+    "q": "The best time to plant a tree was 20 years ago.",
+    "a": "Chinese Proverb",
+    "h": "<blockquote>...</blockquote>"
+  }
+]
 </code></pre>
     </section>
 
+    <!-- ERROR HANDLING -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Test results output showing passed tests.</div>
+      <h3>Best Practices for HTTP Requests</h3>
+      
+      <ul>
+        <li><strong>Always Use Try-Catch:</strong> Network requests can fail due to connectivity issues</li>
+        <li><strong>Check Status Codes:</strong> Verify response.statusCode == 200 before processing data</li>
+        <li><strong>Add Headers:</strong> Some APIs require User-Agent and Accept headers</li>
+        <li><strong>Show Loading State:</strong> Display "Loading..." while fetching data</li>
+        <li><strong>Handle Timeouts:</strong> Use timeout parameter to prevent indefinite waiting</li>
+        <li><strong>Parse JSON Safely:</strong> Check if keys exist before accessing them</li>
+        <li><strong>User Feedback:</strong> Show clear error messages to users</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Common HTTP Status Codes:</h4>
+      <ul>
+        <li><strong>200 OK:</strong> Request successful, data returned</li>
+        <li><strong>404 Not Found:</strong> Requested resource doesn't exist</li>
+        <li><strong>500 Internal Server Error:</strong> Server-side error occurred</li>
+        <li><strong>401 Unauthorized:</strong> Authentication required</li>
+        <li><strong>403 Forbidden:</strong> Access denied</li>
+      </ul>
+    </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li><strong>HTTP Package:</strong> Add dependency in pubspec.yaml to make API requests</li>
+        <li><strong>async/await:</strong> Essential for handling asynchronous network operations</li>
+        <li><strong>Uri.parse():</strong> Converts string URLs to Uri objects for http methods</li>
+        <li><strong>jsonDecode():</strong> Parses JSON strings into Dart Map/List objects</li>
+        <li><strong>Error Handling:</strong> Use try-catch blocks to handle network failures gracefully</li>
+        <li><strong>Status Codes:</strong> Always check response.statusCode before processing data</li>
+        <li><strong>setState():</strong> Updates UI after receiving API data</li>
+        <li><strong>Loading States:</strong> Provide user feedback while data is being fetched</li>
+        <li><strong>Headers:</strong> Some APIs require specific headers like User-Agent</li>
+        <li><strong>Public APIs:</strong> Use free APIs like JSONPlaceholder for testing and learning</li>
+      </ul>
     </section>
   </main>
 

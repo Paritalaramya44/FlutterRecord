@@ -68,7 +68,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Student Info
             Container(
               padding: const EdgeInsets.all(16),
               margin: const EdgeInsets.only(bottom: 20),
@@ -90,10 +89,8 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Navigation Button
             ElevatedButton(
               onPressed: () {
-                // Navigate to Second Screen
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SecondScreen()),
@@ -126,7 +123,6 @@ class SecondScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navigate back to Home Screen
                 Navigator.pop(context);
               },
               child: const Text("Back to Home Screen"),
@@ -188,7 +184,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Named Routes Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      // Define named routes
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
@@ -210,7 +205,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Student Info
             Container(
               padding: const EdgeInsets.all(16),
               margin: const EdgeInsets.only(bottom: 20),
@@ -232,7 +226,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Navigation Button
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/second');
@@ -307,7 +300,6 @@ class ThirdScreen extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                // Pop until home screen (removes all intermediate screens)
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
               child: const Text("Back to Home (Skip All)"),

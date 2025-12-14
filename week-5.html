@@ -276,14 +276,12 @@ class ResponsiveExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Check orientation
     final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Responsive UI - Orientation")),
       body: Column(
         children: [
-          // Student Info Header
           Container(
             padding: const EdgeInsets.all(16),
             color: Colors.blue[100],
@@ -302,7 +300,6 @@ class ResponsiveExample extends StatelessWidget {
               ),
             ),
           ),
-          // Orientation-based layout
           Expanded(
             child: isPortrait
                 ? Column(
@@ -408,14 +405,12 @@ class ResponsiveExample extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // breakpoint: <600 = mobile, >=600 = tablet/desktop
     final isMobile = screenWidth < 600;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Responsive UI - Breakpoints")),
       body: Column(
         children: [
-          // Student Info Header
           Container(
             padding: const EdgeInsets.all(16),
             color: Colors.orange[100],
@@ -434,7 +429,6 @@ class ResponsiveExample extends StatelessWidget {
               ),
             ),
           ),
-          // Breakpoint-based layout
           Expanded(
             child: isMobile
                 ? Column(

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Week 8 — Persistence & Storage</title>
+  <title>Week 8 — Login Screen with Validations</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -11,36 +11,218 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 8</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">←</a>
+      <a href="index.html">⌂</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 8 — Persistence & Storage</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 8 — Login Screen with Validations</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Local storage with `SharedPreferences`.</li>
-        <li>File storage basics.</li>
-        <li>Intro to SQLite or Hive.</li>
+        <li>Create a professional login screen with email and password fields</li>
+        <li>Implement form validations for user input</li>
+        <li>Use TextFormField widgets for input handling</li>
+        <li>Apply proper UI design with Container, Column, and TextField widgets</li>
       </ol>
     </section>
 
+    <!-- LOGIN PAGE -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>final prefs = await SharedPreferences.getInstance();
-await prefs.setString('key', 'value');
+      <h3>1. Create a Simple Login Screen with Validations</h3>
+      
+      <p>A login screen is a fundamental component of most applications. This example demonstrates how to create a functional login page with email and password validation, proper error handling, and a clean user interface.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Widgets Used:</h4>
+      <ul>
+        <li><strong>TextField/TextFormField:</strong> Input fields for email and password</li>
+        <li><strong>ElevatedButton:</strong> Login button with custom styling</li>
+        <li><strong>Column:</strong> Vertical arrangement of widgets</li>
+        <li><strong>Container:</strong> Styling and spacing containers</li>
+        <li><strong>Form & GlobalKey:</strong> Form state management and validation</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Validation Rules:</h4>
+      <ul>
+        <li><strong>Email:</strong> Must contain '@' symbol and not be empty</li>
+        <li><strong>Password:</strong> Must be at least 6 characters long</li>
+        <li><strong>Error Messages:</strong> Display helpful feedback for invalid input</li>
+      </ul>
+
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginScreen(),
+    );
+  }
+}
+
+/// Login Screen with Form Validation
+/// Created by: Prashanth kumar (Roll No: 238W1A12D4)
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Login Screen"),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // 🔹 Student Info Display
+              Text(
+                "Prashanth kumar",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Roll No: 238W1A12D4",
+                style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+              ),
+              SizedBox(height: 40),
+
+              // 🔹 Email Field
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.email),
+                ),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your email";
+                  }
+                  if (!value.contains('@')) {
+                    return "Please enter a valid email";
+                  }
+                  return null;
+                },
+              ),
+
+              SizedBox(height: 20),
+
+              // 🔹 Password Field
+              TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock),
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your password";
+                  }
+                  if (value.length < 6) {
+                    return "Password must be at least 6 characters";
+                  }
+                  return null;
+                },
+              ),
+
+              SizedBox(height: 30),
+
+              // 🔹 Login Button
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Login Successful!")),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  "Login",
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+}
 </code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">How It Works:</h4>
+      <ol>
+        <li><strong>Form Widget:</strong> Wraps all input fields and manages their validation state with GlobalKey</li>
+        <li><strong>TextEditingController:</strong> Controls and retrieves text from input fields</li>
+        <li><strong>Validator Functions:</strong> Return error messages if validation fails, null if valid</li>
+        <li><strong>_formKey.currentState!.validate():</strong> Triggers validation for all fields when login is pressed</li>
+        <li><strong>SnackBar:</strong> Shows success message when all validations pass</li>
+        <li><strong>dispose():</strong> Cleans up controllers when widget is removed to prevent memory leaks</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Input Field Features:</h4>
+      <ul>
+        <li><strong>OutlineInputBorder:</strong> Creates bordered input fields with rounded corners</li>
+        <li><strong>prefixIcon:</strong> Adds icons (email, lock) inside the input fields</li>
+        <li><strong>obscureText:</strong> Hides password characters for security</li>
+        <li><strong>keyboardType:</strong> Shows appropriate keyboard (email keyboard for email field)</li>
+      </ul>
+
+      <div class="output" style="min-height: 300px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; margin: 16px 0; padding: 20px;">
+        <p style="color: #999; font-style: italic;">[ Screenshot: Login Screen with Validation ]</p>
+      </div>
     </section>
 
+    <!-- KEY TAKEAWAYS -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Data persisted across app restarts.</div>
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li><strong>Form Validation:</strong> Use GlobalKey with Form widget to manage validation state</li>
+        <li><strong>TextFormField:</strong> Provides built-in validation support with validator parameter</li>
+        <li><strong>Controllers:</strong> TextEditingController manages input field values and lifecycle</li>
+        <li><strong>User Feedback:</strong> Display error messages inline and success messages with SnackBar</li>
+        <li><strong>Security:</strong> Use obscureText for password fields to hide sensitive input</li>
+        <li><strong>Clean UI:</strong> Proper spacing with SizedBox and styled buttons enhance user experience</li>
+        <li><strong>Validation Logic:</strong> Check for empty fields, email format, and minimum password length</li>
+        <li><strong>Memory Management:</strong> Always dispose controllers to prevent memory leaks</li>
+      </ul>
     </section>
   </main>
 

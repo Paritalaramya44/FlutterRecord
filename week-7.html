@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Week 7 — HTTP & APIs</title>
+  <title>Week 7 — Creating and Styling Custom Widgets</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -11,36 +11,412 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 7</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">← Index</a>
+      <a href="index.html">⌂ Home</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 7 — HTTP & APIs</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 7 — Creating and Styling Custom Widgets</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Fetch data from REST API.</li>
-        <li>Parse JSON and display.</li>
-        <li>Error handling and loading states.</li>
+        <li>Create reusable custom widgets for common UI components</li>
+        <li>Apply app-wide styling using themes and custom styles</li>
+        <li>Implement consistent design patterns across the application</li>
+        <li>Understand widget composition and code reusability</li>
       </ol>
     </section>
 
+    <!-- REUSABLE CUSTOM WIDGETS -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>final res = await http.get(Uri.parse('https://api.example.com/items'));
-if(res.statusCode == 200){ /* parse */ }
+      <h3>1. Creating Reusable Custom Widgets</h3>
+      
+      <p>Custom widgets allow you to create reusable UI components that can be used throughout your application. By extracting common UI patterns into separate widget classes, you improve code maintainability and reduce duplication.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Benefits:</h4>
+      <ul>
+        <li><strong>Reusability:</strong> Write once, use anywhere in your app</li>
+        <li><strong>Maintainability:</strong> Changes to the widget reflect everywhere it's used</li>
+        <li><strong>Clean Code:</strong> Separates concerns and improves readability</li>
+        <li><strong>Consistency:</strong> Ensures uniform UI across your application</li>
+      </ul>
+
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: HomeScreen());
+  }
+}
+
+/// 🔹 Reusable Button Widget
+/// Created by: Prashanth kumar (Roll No: 238W1A12D4)
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const CustomButton({super.key, required this.text, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Text(text),
+    );
+  }
+}
+
+/// 🔹 Using the Reusable Button
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Simple Reusable Widget")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Prashanth kumar",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "Roll No: 238W1A12D4",
+              style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+            ),
+            SizedBox(height: 30),
+            CustomButton(
+              text: "Click Me",
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Button Pressed!")),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 </code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">How It Works:</h4>
+      <ol>
+        <li><strong>CustomButton Widget:</strong> Encapsulates the button logic with customizable text and onPressed callback</li>
+        <li><strong>Constructor Parameters:</strong> Accepts text and onPressed as required parameters for flexibility</li>
+        <li><strong>Usage in HomeScreen:</strong> Simply instantiate CustomButton with desired properties</li>
+        <li><strong>SnackBar Feedback:</strong> Shows a message when the button is pressed</li>
+      </ol>
+
+      <div class="output" style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin: 16px 0; text-align: center;">
+        <img src="outputs/week-7/reusablewidget.png" alt="Custom Reusable Button Widget" style="max-width: 500px; width: 100%; height: auto; border-radius: 4px;">
+      </div>
     </section>
 
+    <!-- APP-WIDE THEMING -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">List view with network data.</div>
+      <h3>2. Apply App-Wide Styling Using Themes</h3>
+      
+      <p>Flutter's theming system allows you to define consistent visual styles across your entire application. ThemeData provides a comprehensive way to customize colors, fonts, button styles, and more from a single location.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Theme Components:</h4>
+      <ul>
+        <li><strong>Primary Color:</strong> Main color used throughout the app (buttons, app bars, etc.)</li>
+        <li><strong>Scaffold Background:</strong> Default background color for all screens</li>
+        <li><strong>Text Theme:</strong> Defines typography styles for different text elements</li>
+        <li><strong>Component Themes:</strong> Specific styling for buttons, cards, inputs, etc.</li>
+      </ul>
+
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+/// App with Custom Theme
+/// Created by: Prashanth kumar (Roll No: 238W1A12D4)
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Theme Example",
+      theme: ThemeData(
+        primarySwatch: Colors.blue,        // App primary color
+        scaffoldBackgroundColor: Colors.grey[200], // Background color
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          bodyMedium: TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("App Theme Demo")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Prashanth kumar", style: Theme.of(context).textTheme.bodyLarge),
+            Text("Roll No: 238W1A12D4", style: Theme.of(context).textTheme.bodyMedium),
+            SizedBox(height: 30),
+            Text("Hello Flutter!", style: Theme.of(context).textTheme.bodyLarge),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text("Themed Button"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Theme Configuration Breakdown:</h4>
+      <ol>
+        <li><strong>primarySwatch:</strong> Sets the primary color palette (Colors.blue)</li>
+        <li><strong>scaffoldBackgroundColor:</strong> Sets default screen background to light grey</li>
+        <li><strong>textTheme:</strong> Defines bodyLarge (bold, 20px) and bodyMedium (16px) text styles</li>
+        <li><strong>elevatedButtonTheme:</strong> Customizes button appearance with blue background, white text, padding, and rounded corners</li>
+        <li><strong>Theme.of(context):</strong> Accesses the defined theme to apply styles consistently</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Benefits of Theming:</h4>
+      <ul>
+        <li>Centralized styling makes it easy to change the entire app's appearance</li>
+        <li>Ensures consistency across all screens and widgets</li>
+        <li>Supports light and dark themes with minimal code changes</li>
+        <li>Makes the app look professional and polished</li>
+      </ul>
+
+      <div class="output" style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin: 16px 0; text-align: center;">
+        <img src="outputs/week-7/theme-button.png" alt="App-Wide Theme Styling" style="max-width: 500px; width: 100%; height: auto; border-radius: 4px;">
+      </div>
+    </section>
+
+    <!-- ANIMATIONS -->
+    <section class="content-block">
+      <h3>3. Adding Animations to Enhance UX</h3>
+      
+      <p>Animations bring your Flutter app to life by providing smooth transitions and visual feedback. Flutter provides various AnimatedWidgets that make it easy to add animations without complex animation controllers.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Animation Types Covered:</h4>
+      <ul>
+        <li><strong>Fade:</strong> AnimatedOpacity - Smooth fade in/out effects</li>
+        <li><strong>Slide:</strong> AnimatedSlide - Move widgets horizontally or vertically</li>
+        <li><strong>Scale:</strong> AnimatedScale - Zoom widgets in and out</li>
+        <li><strong>Rotation:</strong> AnimatedRotation - Rotate widgets smoothly</li>
+        <li><strong>Position:</strong> AnimatedPositioned - Move widgets within a Stack</li>
+        <li><strong>Container:</strong> AnimatedContainer - Animate size, color, and other properties</li>
+      </ul>
+
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: AllAnimationsDemo());
+  }
+}
+
+/// All Animation Classes Demo
+/// Created by: Prashanth kumar (Roll No: 238W1A12D4)
+class AllAnimationsDemo extends StatefulWidget {
+  @override
+  _AllAnimationsDemoState createState() => _AllAnimationsDemoState();
+}
+
+class _AllAnimationsDemoState extends State<AllAnimationsDemo> {
+  bool _visible = true;
+  bool _slided = false;
+  double _scale = 1.0;
+  double _rotation = 0.0;
+  double _position = 0.0;
+  double _boxSize = 100;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("All Animation Classes")),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 20),
+
+            // 🔹 Student Info
+            Text(
+              "Prashanth kumar",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "Roll No: 238W1A12D4",
+              style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+            ),
+            SizedBox(height: 30),
+
+            // 🔹 1. Fade (AnimatedOpacity)
+            AnimatedOpacity(
+              opacity: _visible ? 1.0 : 0.0,
+              duration: Duration(seconds: 1),
+              child: Text("Fade Animation", style: TextStyle(fontSize: 20)),
+            ),
+
+            SizedBox(height: 20),
+
+            // 🔹 2. Slide (AnimatedSlide)
+            AnimatedSlide(
+              offset: _slided ? Offset(1, 0) : Offset(0, 0),
+              duration: Duration(seconds: 1),
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(12),
+                child: Text("Slide Animation", style: TextStyle(color: Colors.white)),
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            // 🔹 3. Scale (AnimatedScale)
+            AnimatedScale(
+              scale: _scale,
+              duration: Duration(seconds: 1),
+              child: Icon(Icons.star, size: 60, color: Colors.orange),
+            ),
+
+            SizedBox(height: 20),
+
+            // 🔹 4. Rotation (AnimatedRotation)
+            AnimatedRotation(
+              turns: _rotation,
+              duration: Duration(seconds: 1),
+              child: Icon(Icons.refresh, size: 60, color: Colors.green),
+            ),
+
+            SizedBox(height: 20),
+
+            // 🔹 5. Position (AnimatedPositioned) inside Stack
+            Container(
+              height: 120,
+              color: Colors.grey[300],
+              child: Stack(
+                children: [
+                  AnimatedPositioned(
+                    duration: Duration(seconds: 1),
+                    left: _position,
+                    top: 30,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.purple,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            // 🔹 6. Container (AnimatedContainer)
+            AnimatedContainer(
+              duration: Duration(seconds: 1),
+              curve: Curves.easeInOut,
+              width: _boxSize,
+              height: _boxSize,
+              color: Colors.red,
+            ),
+
+            SizedBox(height: 30),
+
+            // 🔹 Buttons to trigger animations
+            Wrap(
+              spacing: 10,
+              children: [
+                ElevatedButton(onPressed: () => setState(() => _visible = !_visible), child: Text("Fade")),
+                ElevatedButton(onPressed: () => setState(() => _slided = !_slided), child: Text("Slide")),
+                ElevatedButton(onPressed: () => setState(() => _scale = _scale == 1.0 ? 1.5 : 1.0), child: Text("Scale")),
+                ElevatedButton(onPressed: () => setState(() => _rotation += 0.25), child: Text("Rotate")),
+                ElevatedButton(onPressed: () => setState(() => _position = _position == 0 ? 200 : 0), child: Text("Move")),
+                ElevatedButton(onPressed: () => setState(() => _boxSize = _boxSize == 100 ? 150 : 100), child: Text("Resize")),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">How Each Animation Works:</h4>
+      <ol>
+        <li><strong>AnimatedOpacity:</strong> Toggles opacity between 0.0 and 1.0 for fade effects</li>
+        <li><strong>AnimatedSlide:</strong> Changes offset from (0,0) to (1,0) to slide horizontally</li>
+        <li><strong>AnimatedScale:</strong> Scales widget from 1.0 to 1.5 times its original size</li>
+        <li><strong>AnimatedRotation:</strong> Rotates widget by adding 0.25 turns (90 degrees) each time</li>
+        <li><strong>AnimatedPositioned:</strong> Moves widget from left position 0 to 200 pixels within Stack</li>
+        <li><strong>AnimatedContainer:</strong> Smoothly transitions between different sizes (100px to 150px)</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Animation Concepts:</h4>
+      <ul>
+        <li><strong>Duration:</strong> Specifies how long the animation takes (typically 1 second)</li>
+        <li><strong>Curve:</strong> Defines the animation timing (e.g., easeInOut for smooth acceleration/deceleration)</li>
+        <li><strong>setState:</strong> Triggers the animation by updating the widget state</li>
+        <li><strong>Interactive Buttons:</strong> Each button demonstrates a different animation type</li>
+      </ul>
+
+      <div class="output" style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin: 16px 0;">
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 200px; max-width: 400px;">
+            <img src="outputs/week-7/before.png" alt="Before Animation" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+            <p style="text-align: center; margin-top: 8px; color: #666; font-size: 14px;">Before Animation</p>
+          </div>
+          <div style="flex: 1; min-width: 200px; max-width: 400px;">
+            <img src="outputs/week-7/after.png" alt="After Animation" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+            <p style="text-align: center; margin-top: 8px; color: #666; font-size: 14px;">After Animation</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li><strong>Custom Widgets:</strong> Extract reusable UI components into separate widget classes for better code organization</li>
+        <li><strong>Constructor Parameters:</strong> Make widgets flexible by accepting customizable properties</li>
+        <li><strong>ThemeData:</strong> Define app-wide styling in one place for consistent visual appearance</li>
+        <li><strong>Theme.of(context):</strong> Access and apply theme properties throughout your widgets</li>
+        <li><strong>Component Themes:</strong> Customize specific widget types (buttons, text, cards) globally</li>
+        <li><strong>Maintainability:</strong> Changes to custom widgets or themes automatically reflect across the entire app</li>
+        <li><strong>Animations:</strong> Use AnimatedWidgets for simple, smooth animations without complex controllers</li>
+        <li><strong>User Experience:</strong> Animations provide visual feedback and make apps feel more responsive</li>
+      </ul>
     </section>
   </main>
 

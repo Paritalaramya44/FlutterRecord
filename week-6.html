@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week 6 — Forms & Validation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="week-page">
+  <header class="header container">
+    <div class="brand"><div class="logo"></div> <span>Week 6</span></div>
+    <nav class="nav">
+      <a href="records.html">Back to Index</a>
+      <a href="index.html">Hero</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="header-bar">
+      <h1 class="title">Week 6 — Forms & Validation</h1>
+      <div class="date">Date: YYYY-MM-DD</div>
+    </div>
+
+    <section class="content-block">
+      <h3>Questions</h3>
+      <ol>
+        <li>Form widgets and validation.</li>
+        <li>Text editing controllers.</li>
+        <li>Submitting and handling errors.</li>
+      </ol>
+    </section>
+
+    <section class="content-block">
+      <h3>Code</h3>
+      <pre class="code"><code>final formKey = GlobalKey<FormState>();
+Form(key: formKey, child: TextFormField(validator: (v)=> v!.isEmpty? 'Required': null));
+</code></pre>
+    </section>
+
+    <section class="content-block">
+      <h3>Output</h3>
+      <div class="output">Validation error screenshot.</div>
+    </section>
+  </main>
+
+  <footer class="footer container">© 2025 Academic Record</footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week 3 — Widgets & Layouts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="week-page">
+  <header class="header container">
+    <div class="brand"><div class="logo"></div> <span>Week 3</span></div>
+    <nav class="nav">
+      <a href="records.html">Back to Index</a>
+      <a href="index.html">Hero</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="header-bar">
+      <h1 class="title">Week 3 — Widgets & Layouts</h1>
+      <div class="date">Date: YYYY-MM-DD</div>
+    </div>
+
+    <section class="content-block">
+      <h3>Questions</h3>
+      <ol>
+        <li>Stateless vs Stateful widgets.</li>
+        <li>Layouts using `Row`, `Column`, `Container`.</li>
+        <li>Styling with `ThemeData`.</li>
+      </ol>
+    </section>
+
+    <section class="content-block">
+      <h3>Code</h3>
+      <pre class="code"><code>class Counter extends StatefulWidget {
+  const Counter({super.key});
+  @override State<Counter> createState() => _CounterState();
+}
+class _CounterState extends State<Counter> {
+  int value = 0;
+  @override Widget build(BuildContext context) {
+    return Row(children: [
+      Text('Value: $value'),
+      ElevatedButton(onPressed: () => setState(() => value++), child: Text('Inc')),
+    ]);
+  }
+}
+</code></pre>
+    </section>
+
+    <section class="content-block">
+      <h3>Output</h3>
+      <div class="output">Interactive counter screenshot.</div>
+    </section>
+  </main>
+
+  <footer class="footer container">© 2025 Academic Record</footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

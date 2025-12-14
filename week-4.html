@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week 4 — Navigation & Routing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="week-page">
+  <header class="header container">
+    <div class="brand"><div class="logo"></div> <span>Week 4</span></div>
+    <nav class="nav">
+      <a href="records.html">Back to Index</a>
+      <a href="index.html">Hero</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="header-bar">
+      <h1 class="title">Week 4 — Navigation & Routing</h1>
+      <div class="date">Date: YYYY-MM-DD</div>
+    </div>
+
+    <section class="content-block">
+      <h3>Questions</h3>
+      <ol>
+        <li>Navigator 1.0 vs 2.0.</li>
+        <li>Push/pop routes and named routes.</li>
+        <li>Pass data between pages.</li>
+      </ol>
+    </section>
+
+    <section class="content-block">
+      <h3>Code</h3>
+      <pre class="code"><code>Navigator.of(context).push(
+  MaterialPageRoute(builder: (context) => const DetailsPage()),
+);
+</code></pre>
+    </section>
+
+    <section class="content-block">
+      <h3>Output</h3>
+      <div class="output">Page transition screenshot.</div>
+    </section>
+  </main>
+
+  <footer class="footer container">© 2025 Academic Record</footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week 1 — Setup & Introduction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="week-page">
+  <header class="header container">
+    <div class="brand"><div class="logo"></div> <span>Week 1</span></div>
+    <nav class="nav">
+      <a href="records.html">Back to Index</a>
+      <a href="index.html">Hero</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="header-bar">
+      <h1 class="title">Week 1 — Flutter Basic Concepts</h1>
+      <div class="date">Date: YYYY-MM-DD</div>
+    </div>
+
+    <section class="content-block">
+      <h3>FLUTTER BASIC CONCEPTS - Questions & Answers</h3>
+      
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">1. What is Flutter?</h4>
+        <p><strong>Answer:</strong> Flutter is an open-source UI software development kit (SDK) created by Google. It enables developers to build natively compiled applications for mobile (Android & iOS), web, and desktop platforms from a single codebase. Flutter uses the Dart programming language and provides a rich set of pre-designed widgets for creating beautiful, fast, and responsive user interfaces.</p>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">2. What are the key features of Flutter?</h4>
+        <p><strong>Answer:</strong></p>
+        <ul>
+          <li><strong>Cross-Platform Development:</strong> Single codebase for multiple platforms</li>
+          <li><strong>Hot Reload:</strong> Instantly see changes without restarting the app</li>
+          <li><strong>Rich Widget Library:</strong> Extensive collection of customizable widgets</li>
+          <li><strong>Native Performance:</strong> Compiles to native ARM code for optimal performance</li>
+          <li><strong>Expressive UI:</strong> Flexible design system with Material Design and Cupertino widgets</li>
+          <li><strong>Fast Development:</strong> Rapid prototyping and iteration</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">3. What is Dart and why is it used in Flutter?</h4>
+        <p><strong>Answer:</strong> Dart is an object-oriented, class-based programming language developed by Google. It's used in Flutter because:</p>
+        <ul>
+          <li><strong>AOT Compilation:</strong> Compiles to native code for high performance</li>
+          <li><strong>JIT Compilation:</strong> Enables hot reload during development</li>
+          <li><strong>Optimized for UI:</strong> Designed for building user interfaces</li>
+          <li><strong>Easy to Learn:</strong> Syntax similar to Java, JavaScript, and C#</li>
+          <li><strong>Strong Typing:</strong> Catches errors early with sound null safety</li>
+          <li><strong>Asynchronous Programming:</strong> Built-in support for async/await</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">4. What are the advantages of using Flutter?</h4>
+        <p><strong>Answer:</strong></p>
+        <ul>
+          <li><strong>Faster Time to Market:</strong> Single codebase reduces development time</li>
+          <li><strong>Cost-Effective:</strong> One team can handle multiple platforms</li>
+          <li><strong>Consistent UI:</strong> Same look and feel across all platforms</li>
+          <li><strong>High Performance:</strong> Native performance without JavaScript bridge</li>
+          <li><strong>Hot Reload:</strong> Speeds up development and bug fixing</li>
+          <li><strong>Large Community:</strong> Extensive packages and strong support</li>
+          <li><strong>Backed by Google:</strong> Regular updates and long-term support</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">5. What is Android Studio, and how is it used in Flutter?</h4>
+        <p><strong>Answer:</strong> Android Studio is the official Integrated Development Environment (IDE) for Android app development. In Flutter development, it serves as:</p>
+        <ul>
+          <li><strong>Code Editor:</strong> Write and edit Dart/Flutter code with syntax highlighting</li>
+          <li><strong>Emulator Manager:</strong> Create and manage Android virtual devices</li>
+          <li><strong>Debugger:</strong> Debug Flutter applications with breakpoints</li>
+          <li><strong>Plugin Support:</strong> Install Flutter and Dart plugins for enhanced functionality</li>
+          <li><strong>SDK Manager:</strong> Manage Android SDK versions and tools</li>
+          <li><strong>Testing Tools:</strong> Run and test Flutter apps on emulators or physical devices</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">6. How do you install Flutter and test its setup?</h4>
+        <p><strong>Answer:</strong> Installation and verification steps:</p>
+        <ol>
+          <li><strong>Download Flutter SDK:</strong> Visit flutter.dev and download the SDK for your OS</li>
+          <li><strong>Extract the SDK:</strong> Unzip to a desired location (e.g., C:\src\flutter on Windows)</li>
+          <li><strong>Update PATH:</strong> Add flutter\bin to your system PATH variable</li>
+          <li><strong>Run Flutter Doctor:</strong></li>
+        </ol>
+        <pre class="code"><code>flutter doctor</code></pre>
+        <p>This command checks your environment and displays missing dependencies.</p>
+        <ol start="5">
+          <li><strong>Install Dependencies:</strong> Follow flutter doctor's suggestions to install:</li>
+          <ul>
+            <li>Android Studio or VS Code</li>
+            <li>Android SDK</li>
+            <li>Xcode (macOS only, for iOS development)</li>
+          </ul>
+          <li><strong>Verify Installation:</strong></li>
+        </ol>
+        <pre class="code"><code>flutter --version
+flutter doctor -v</code></pre>
+        <ol start="7">
+          <li><strong>Create Test App:</strong></li>
+        </ol>
+        <pre class="code"><code>flutter create my_first_app
+cd my_first_app
+flutter run</code></pre>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">7. What is the difference between Flutter and React Native?</h4>
+        <p><strong>Answer:</strong></p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+          <tr style="background: #f1f5f9;">
+            <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0;">Aspect</th>
+            <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0;">Flutter</th>
+            <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0;">React Native</th>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Language</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Dart</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">JavaScript/TypeScript</td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>UI Rendering</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Custom rendering engine (Skia)</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Native components via bridge</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Performance</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Generally faster (no bridge)</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Good but uses JavaScript bridge</td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Hot Reload</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Yes, very fast</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Yes, fast refresh</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Company</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Google</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Meta (Facebook)</td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">8. What are the differences between web applications and mobile applications?</h4>
+        <p><strong>Answer:</strong></p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+          <tr style="background: #f1f5f9;">
+            <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0;">Aspect</th>
+            <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0;">Web Applications</th>
+            <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0;">Mobile Applications</th>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Platform</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Run in web browsers</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Run on mobile OS (Android/iOS)</td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Installation</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">No installation required</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Must be downloaded from app stores</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Device Access</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Limited (camera, location)</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Full access (GPS, contacts, sensors)</td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Performance</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Depends on browser & connection</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Native performance, faster</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Offline Access</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Limited (requires PWA)</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Full offline functionality</td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Updates</strong></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Instant updates</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Requires app store approval</td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">9. What is the purpose of a simulator and emulator for Flutter?</h4>
+        <p><strong>Answer:</strong> Simulators and emulators allow developers to test Flutter applications without physical devices:</p>
+        <ul>
+          <li><strong>Emulator (Android):</strong> 
+            <ul>
+              <li>Mimics Android device hardware and software</li>
+              <li>Runs actual Android OS</li>
+              <li>Tests different Android versions and screen sizes</li>
+              <li>Command to list and launch:</li>
+            </ul>
+            <pre class="code"><code>flutter emulators
+flutter emulators --launch &lt;emulator_id&gt;</code></pre>
+          </li>
+          <li><strong>Simulator (iOS):</strong>
+            <ul>
+              <li>Simulates iOS devices (iPhone, iPad)</li>
+              <li>Only available on macOS with Xcode</li>
+              <li>Faster than physical devices for testing</li>
+              <li>Command to launch:</li>
+            </ul>
+            <pre class="code"><code>open -a Simulator
+flutter run</code></pre>
+          </li>
+          <li><strong>Benefits:</strong>
+            <ul>
+              <li>No physical device needed</li>
+              <li>Test on multiple configurations</li>
+              <li>Quick debugging and testing</li>
+              <li>Cost-effective development</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">10. Which tools are commonly used in the Flutter development environment?</h4>
+        <p><strong>Answer:</strong> Essential tools for Flutter development:</p>
+        <ul>
+          <li><strong>IDEs & Editors:</strong>
+            <ul>
+              <li>Android Studio (with Flutter & Dart plugins)</li>
+              <li>Visual Studio Code (with Flutter & Dart extensions)</li>
+              <li>IntelliJ IDEA</li>
+            </ul>
+          </li>
+          <li><strong>SDKs:</strong>
+            <ul>
+              <li>Flutter SDK</li>
+              <li>Dart SDK (bundled with Flutter)</li>
+              <li>Android SDK</li>
+              <li>Xcode (for iOS/macOS development)</li>
+            </ul>
+          </li>
+          <li><strong>Command Line Tools:</strong>
+            <pre class="code"><code>flutter create   # Create new project
+flutter run      # Run app on device/emulator
+flutter build    # Build release version
+flutter test     # Run tests
+flutter doctor   # Check setup
+flutter pub get  # Install dependencies</code></pre>
+          </li>
+          <li><strong>Debugging & Testing:</strong>
+            <ul>
+              <li>Flutter DevTools</li>
+              <li>Dart DevTools</li>
+              <li>Chrome DevTools (for web)</li>
+            </ul>
+          </li>
+          <li><strong>Package Management:</strong>
+            <ul>
+              <li>pub.dev (package repository)</li>
+              <li>pubspec.yaml (dependency configuration)</li>
+            </ul>
+          </li>
+          <li><strong>Version Control:</strong>
+            <ul>
+              <li>Git & GitHub</li>
+              <li>GitLab or Bitbucket</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+
+  <footer class="footer container">© 2025 Academic Record</footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

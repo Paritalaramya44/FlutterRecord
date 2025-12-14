@@ -11,38 +11,474 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 4</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">← Index</a>
+      <a href="index.html">⌂ Home</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 4 — Navigation & Routing</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 4 — Flutter Layouts: Row, Column & Stack</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Navigator 1.0 vs 2.0.</li>
-        <li>Push/pop routes and named routes.</li>
-        <li>Pass data between pages.</li>
+        <li>Understand and implement Row layout for horizontal arrangement</li>
+        <li>Understand and implement Column layout for vertical arrangement</li>
+        <li>Understand and implement Stack layout for overlapping widgets</li>
+        <li>Combine Row, Column, and Stack layouts in a single application</li>
+        <li>Navigate between different layout examples using Flutter navigation</li>
       </ol>
     </section>
 
+    <!-- ROW LAYOUT -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>Navigator.of(context).push(
-  MaterialPageRoute(builder: (context) => const DetailsPage()),
-);
-</code></pre>
+      <h3>1. Row Layout Example</h3>
+      
+      <p>The Row widget arranges its children horizontally in a single line. It's useful for creating horizontal layouts like navigation bars, action buttons, or icon rows.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+// Entry point of the app
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Row Layout Example',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: RowExample(), // Home screen is RowExample
+    );
+  }
+}
+
+// Row Layout Example
+class RowExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Row Layout Example"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround, 
+              children: [
+                Icon(Icons.home, size: 60, color: Colors.blue),
+                Icon(Icons.star, size: 60, color: Colors.orange),
+                Icon(Icons.settings, size: 60, color: Colors.green),
+              ],
+            ),
+            SizedBox(height: 30),
+            Text(
+              'Name: Prashanth kumar',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Roll No: 238W1A12D4',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>Row Widget:</strong> Arranges children horizontally</li>
+        <li><strong>mainAxisAlignment:</strong> Controls spacing along the horizontal axis (spaceAround, spaceEvenly, center, etc.)</li>
+        <li><strong>children:</strong> List of widgets to display in the row</li>
+      </ul>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-4/rowlayout.png" alt="Row Layout Output" style="width: 100%; height: auto; display: block;">
+      </div>
     </section>
 
+    <!-- COLUMN LAYOUT -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Page transition screenshot.</div>
+      <h3>2. Column Layout Example</h3>
+      
+      <p>The Column widget arranges its children vertically in a single column. It's ideal for stacking elements like forms, lists, or content sections.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+// Entry point of the app
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Column Layout Example',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: ColumnExample(), // Home screen is ColumnExample
+    );
+  }
+}
+
+// Column Layout Example
+class ColumnExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Column Layout Example"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Distribute evenly
+          children: [
+            Text(
+              "Flutter",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text("Click Me"),
+            ),
+            Icon(Icons.thumb_up, size: 60, color: Colors.purple),
+            SizedBox(height: 20),
+            Text(
+              "Name: Prashanth kumar",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            Text(
+              "Roll No: 238W1A12D4",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+ </code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>Column Widget:</strong> Arranges children vertically</li>
+        <li><strong>mainAxisAlignment:</strong> Controls spacing along the vertical axis</li>
+        <li><strong>spaceEvenly:</strong> Distributes space evenly between and around children</li>
+      </ul>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-4/collayout.png" alt="Column Layout Output" style="width: 100%; height: auto; display: block;">
+      </div>
     </section>
+
+    <!-- STACK LAYOUT -->
+    <section class="content-block">
+      <h3>3. Stack Layout Example</h3>
+      
+      <p>The Stack widget allows you to overlay widgets on top of each other. It's perfect for creating layered UIs, badges, or complex designs where elements need to overlap.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+// Entry point of the app
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Stack Layout Example',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: StackExample(), // Home screen is StackExample
+    );
+  }
+}
+
+// Stack Layout Example
+class StackExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Stack Layout Example"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center, // Center all children
+              children: [
+                Container(width: 200, height: 200, color: Colors.blue),
+                Container(width: 150, height: 150, color: Colors.red),
+                Container(width: 100, height: 100, color: Colors.green),
+                Text(
+                  "Stacked",
+                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 30),
+            Text(
+              "Name: Prashanth kumar",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Roll No: 238W1A12D4",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+ </code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>Stack Widget:</strong> Overlays children on top of each other</li>
+        <li><strong>alignment:</strong> Controls how children are positioned within the stack</li>
+        <li><strong>Z-index:</strong> Children are stacked in the order they appear in the list (first child at bottom)</li>
+      </ul>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-4/stack.png" alt="Stack Layout Output" style="width: 100%; height: auto; display: block;">
+      </div>
+    </section>
+
+    <!-- COMBINED EXAMPLE -->
+    <section class="content-block">
+      <h3>4. Row, Column & Stack in One App</h3>
+      
+      <p>This comprehensive example demonstrates navigation between different layout types using Flutter's Navigator. The app includes a home screen with buttons to navigate to each layout example.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Row, Column & Stack Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: HomeScreen(), // Start from menu
+    );
+  }
+}
+
+// -------------------- Home Screen --------------------
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Flutter Layouts")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Name: Prashanth kumar",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Roll No: 238W1A12D4",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 40),
+            ElevatedButton(
+              child: Text("Row Layout"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RowExample()),
+                );
+              },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text("Column Layout"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ColumnExample()),
+                );
+              },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text("Stack Layout"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StackExample()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -------------------- Row Example --------------------
+class RowExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Row Layout Example")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(Icons.home, size: 60, color: Colors.blue),
+                Icon(Icons.star, size: 60, color: Colors.orange),
+                Icon(Icons.settings, size: 60, color: Colors.green),
+              ],
+            ),
+            SizedBox(height: 30),
+            Text(
+              "Name: Prashanth kumar",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Roll No: 238W1A12D4",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -------------------- Column Example --------------------
+class ColumnExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Column Layout Example")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text("Flutter",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            ElevatedButton(onPressed: () {}, child: Text("Click Me")),
+            Icon(Icons.thumb_up, size: 60, color: Colors.purple),
+            Column(
+              children: [
+                Text(
+                  "Name: Prashanth kumar",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Roll No: 238W1A12D4",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// -------------------- Stack Example --------------------
+class StackExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Stack Layout Example")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(width: 200, height: 200, color: Colors.blue),
+                Container(width: 150, height: 150, color: Colors.red),
+                Container(width: 100, height: 100, color: Colors.green),
+                Text(
+                  "Stacked",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 30),
+            Text(
+              "Name: Prashanth kumar",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Roll No: 238W1A12D4",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Navigation Concepts:</h4>
+      <ul>
+        <li><strong>Navigator.push:</strong> Navigate to a new screen</li>
+        <li><strong>MaterialPageRoute:</strong> Creates a route with Material Design transitions</li>
+        <li><strong>context:</strong> BuildContext required for navigation</li>
+        <li><strong>SizedBox:</strong> Creates spacing between buttons</li>
+      </ul>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-4/all_in_one.png" alt="All Layouts Combined Output" style="width: 100%; height: auto; display: block;">
+      </div>
+    </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li>Row widget arranges children horizontally, perfect for navigation bars and icon rows</li>
+        <li>Column widget arranges children vertically, ideal for forms and content stacking</li>
+        <li>Stack widget overlays children, useful for badges, backgrounds, and layered designs</li>
+        <li>mainAxisAlignment controls spacing and alignment along the primary axis</li>
+        <li>crossAxisAlignment controls alignment along the secondary axis</li>
+        <li>Navigator.push enables navigation between screens in Flutter applications</li>
+        <li>MaterialPageRoute provides Material Design page transitions</li>
+        <li>Combining layouts creates complex and responsive user interfaces</li>
+      </ul>
+    </section>
+
   </main>
 
   <footer class="footer container">© 2025 Academic Record</footer>

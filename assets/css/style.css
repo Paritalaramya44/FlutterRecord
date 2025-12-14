@@ -33,6 +33,11 @@ body {
 }
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,6 +59,11 @@ body {
   background: linear-gradient(150deg, var(--primary), var(--accent));
   box-shadow: var(--shadow-md);
 }
+
+body {
+  padding-top: 80px;
+}
+
 .nav a {
   color: var(--muted);
   text-decoration: none;
@@ -197,7 +207,7 @@ body {
   margin-bottom: 24px;
 }
 .week-page .title { font-size: 32px; margin: 0; color: var(--text); font-weight: 700; }
-.week-page .date { color: var(--muted); font-size: 15px; }
+.week-page .date { color: var(--muted); font-size: 15px; white-space: nowrap; }
 
 .content-block {
   margin-top: 20px;

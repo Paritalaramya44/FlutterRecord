@@ -11,37 +11,353 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 6</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">←</a>
+      <a href="index.html">⌂</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 6 — Forms & Validation</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 6 — Flutter Navigation</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Form widgets and validation.</li>
-        <li>Text editing controllers.</li>
-        <li>Submitting and handling errors.</li>
+        <li>Set up navigation between multiple screens using Navigator</li>
+        <li>Understand Navigator.push() and Navigator.pop() methods</li>
+        <li>Implement navigation using named routes for structured app flow</li>
+        <li>Create multi-screen applications with proper navigation structure</li>
       </ol>
     </section>
 
+    <!-- BASIC NAVIGATION -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>final formKey = GlobalKey<FormState>();
-Form(key: formKey, child: TextFormField(validator: (v)=> v!.isEmpty? 'Required': null));
-</code></pre>
+      <h3>1. Basic Navigation Between Multiple Screens</h3>
+      
+      <p>This example demonstrates basic navigation between screens using <code>Navigator.push()</code> and <code>Navigator.pop()</code>. The Navigator widget manages a stack of routes and provides methods to navigate between them.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Navigation Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home Screen")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Student Info
+            Container(
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(bottom: 20),
+              decoration: BoxDecoration(
+                color: Colors.blue[50],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.blue, width: 2),
+              ),
+              child: const Column(
+                children: [
+                  Text(
+                    "Prashanth kumar",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Roll No: 238W1A12D4",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+            // Navigation Button
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to Second Screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SecondScreen()),
+                );
+              },
+              child: const Text("Go to Second Screen"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Second Screen")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "This is the Second Screen",
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate back to Home Screen
+                Navigator.pop(context);
+              },
+              child: const Text("Back to Home Screen"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>Navigator.push():</strong> Adds a new route to the navigation stack</li>
+        <li><strong>MaterialPageRoute:</strong> Creates a route with Material Design transitions</li>
+        <li><strong>Navigator.pop():</strong> Removes the current route from the stack and returns to previous screen</li>
+        <li><strong>context:</strong> Required parameter that provides access to the navigation tree</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">How It Works:</h4>
+      <ol>
+        <li>User starts on Home Screen</li>
+        <li>Tapping "Go to Second Screen" pushes SecondScreen onto the navigation stack</li>
+        <li>Tapping "Back" or using system back button pops the current screen</li>
+        <li>User returns to Home Screen</li>
+      </ol>
+
+      <div class="output" style="min-height: 300px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; margin: 16px 0; padding: 20px;">
+        <p style="color: #999; font-style: italic;">[ Screenshots: Home Screen and Second Screen Navigation ]</p>
+      </div>
     </section>
 
+    <!-- NAMED ROUTES -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Validation error screenshot.</div>
+      <h3>2. Navigation Using Named Routes</h3>
+      
+      <p>Named routes provide a more organized approach to navigation, especially useful for larger apps with many screens. Routes are defined centrally in the MaterialApp widget and accessed by name throughout the app.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Named Routes Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      // Define named routes
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/second': (context) => const SecondScreen(),
+        '/third': (context) => const ThirdScreen(),
+      },
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home Screen")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Student Info
+            Container(
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(bottom: 20),
+              decoration: BoxDecoration(
+                color: Colors.orange[50],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.orange, width: 2),
+              ),
+              child: const Column(
+                children: [
+                  Text(
+                    "Prashanth kumar",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Roll No: 238W1A12D4",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+            // Navigation Button
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/second');
+              },
+              child: const Text("Go to Second Screen"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Second Screen")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "This is the Second Screen",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/third');
+              },
+              child: const Text("Go to Third Screen"),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Back to Home"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ThirdScreen extends StatelessWidget {
+  const ThirdScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Third Screen")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "This is the Third Screen",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Back to Second Screen"),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Pop until home screen (removes all intermediate screens)
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              child: const Text("Back to Home (Skip All)"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>routes:</strong> Map that defines all named routes in the app</li>
+        <li><strong>initialRoute:</strong> The first route to display when app starts</li>
+        <li><strong>Navigator.pushNamed():</strong> Navigate to a route by its name</li>
+        <li><strong>Navigator.popUntil():</strong> Pop multiple screens until a condition is met</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Advantages of Named Routes:</h4>
+      <ul>
+        <li>Centralized route management - all routes defined in one place</li>
+        <li>Easier to maintain and refactor large applications</li>
+        <li>Route names are strings, making them easy to reference</li>
+        <li>Better code organization and readability</li>
+        <li>Simplifies deep linking and URL routing for web apps</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Navigation Flow:</h4>
+      <ol>
+        <li>App starts at Home Screen (initialRoute: '/')</li>
+        <li>From Home, navigate to Second Screen using '/second' route</li>
+        <li>From Second, navigate to Third Screen using '/third' route</li>
+        <li>Can go back one screen at a time with Navigator.pop()</li>
+        <li>Or jump back to Home Screen directly with Navigator.popUntil()</li>
+      </ol>
+
+      <div class="output" style="min-height: 350px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; margin: 16px 0; padding: 20px;">
+        <p style="color: #999; font-style: italic;">[ Screenshots: Home, Second, and Third Screen Navigation Flow ]</p>
+      </div>
     </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li>Navigator manages a stack of routes (screens) in Flutter applications</li>
+        <li>Navigator.push() adds a new screen to the stack</li>
+        <li>Navigator.pop() removes the current screen and returns to the previous one</li>
+        <li>MaterialPageRoute provides Material Design page transitions</li>
+        <li>Named routes offer centralized route management for better organization</li>
+        <li>Navigator.pushNamed() navigates using route names instead of widget instances</li>
+        <li>initialRoute defines the starting screen of the application</li>
+        <li>Navigator.popUntil() allows skipping multiple screens in the navigation stack</li>
+        <li>Named routes are especially useful for large apps with many screens</li>
+        <li>Route names should be descriptive and follow a consistent naming convention</li>
+      </ul>
+    </section>
+
   </main>
 
   <footer class="footer container">© 2025 Academic Record</footer>

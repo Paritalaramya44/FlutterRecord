@@ -11,40 +11,530 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 5</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">← Index</a>
+      <a href="index.html">⌂ Home</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 5 — State Management Basics</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 5 — Emulator, APK & App Deployment</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Local state with `setState`.</li>
-        <li>Lifting state up.</li>
-        <li>Intro to `Provider`.</li>
+        <li>Run and view Flutter app on an emulator</li>
+        <li>Run and view Flutter app on a physical mobile device</li>
+        <li>Build and generate an APK file from your Flutter app</li>
+        <li>Install APK on a mobile device</li>
+        <li>Understand the process of publishing to Google Play Store</li>
+        <li>Design a UI that adapts to different screen sizes and device orientations</li>
+        <li>Use MediaQuery and layout breakpoints to implement responsiveness</li>
       </ol>
     </section>
 
+    <!-- EMULATOR SETUP -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>// Example using ChangeNotifier + Provider
-class CounterModel extends ChangeNotifier {
-  int value = 0;
-  void inc(){ value++; notifyListeners(); }
-}
-</code></pre>
+      <h3>1. Running Flutter App on an Emulator</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 1: Create Android Virtual Device (AVD)</h4>
+      <ol>
+        <li>Open Android Studio</li>
+        <li>Go to <strong>Tools → Device Manager</strong> (or <strong>AVD Manager</strong>)</li>
+        <li>Click <strong>Create Device</strong></li>
+        <li>Select a device definition (e.g., Pixel 4)</li>
+        <li>Select a system image (e.g., Android 13 - API Level 33)</li>
+        <li>Click <strong>Finish</strong></li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 2: Launch the Emulator</h4>
+      <p>From Device Manager, click the play button next to your AVD to launch it.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 3: Run Flutter App</h4>
+      <p>In your Flutter project directory:</p>
+      <pre class="code"><code>flutter run</code></pre>
+      <p>Or in Android Studio/VS Code, click the <strong>Run</strong> button and select your emulator.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Verify Flutter Devices</h4>
+      <p>Check connected devices:</p>
+      <pre class="code"><code>flutter devices</code></pre>
+
+      <div class="output" style="min-height: 300px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; margin: 16px 0; padding: 20px;">
+        <p style="color: #999; font-style: italic;">[ Screenshot: Flutter App Running on Android Emulator ]</p>
+      </div>
     </section>
 
+    <!-- PHYSICAL DEVICE -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Provider-driven counter demo.</div>
+      <h3>2. Running Flutter App on Physical Device</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">For Android Devices</h4>
+      
+      <p><strong>Step 1: Enable Developer Options</strong></p>
+      <ol>
+        <li>Go to <strong>Settings → About Phone</strong></li>
+        <li>Tap <strong>Build Number</strong> 7 times to enable Developer Mode</li>
+        <li>Go back to <strong>Settings → Developer Options</strong></li>
+        <li>Enable <strong>USB Debugging</strong></li>
+      </ol>
+
+      <p><strong>Step 2: Connect Device</strong></p>
+      <ol>
+        <li>Connect your Android device to computer via USB cable</li>
+        <li>Allow USB debugging when prompted on your device</li>
+        <li>Verify connection:</li>
+      </ol>
+      <pre class="code"><code>flutter devices</code></pre>
+      <p>You should see your device listed.</p>
+
+      <p><strong>Step 3: Run App on Device</strong></p>
+      <pre class="code"><code>flutter run</code></pre>
+      <p>Or select your device from the device dropdown in your IDE and click Run.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Troubleshooting</h4>
+      <ul>
+        <li>If device not detected, try different USB cable or port</li>
+        <li>Install appropriate USB drivers for your device</li>
+        <li>Run <code>adb devices</code> to check device connection</li>
+      </ul>
+
+      
     </section>
+
+    <!-- BUILD APK -->
+    <section class="content-block">
+      <h3>3. Building and Generating APK File</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Build APK for Testing</h4>
+      <p>To build a debug APK:</p>
+      <pre class="code"><code>flutter build apk --debug</code></pre>
+
+      <p>To build a release APK (optimized and smaller):</p>
+      <pre class="code"><code>flutter build apk --release</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Build Split APKs (Recommended)</h4>
+      <p>Build separate APKs for different architectures (reduces file size):</p>
+      <pre class="code"><code>flutter build apk --split-per-abi</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">APK Location</h4>
+      <p>Generated APK files are located at:</p>
+      <pre class="code"><code>build/app/outputs/flutter-apk/app-release.apk</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Build App Bundle (For Play Store)</h4>
+      <p>App Bundle is the recommended format for Google Play Store:</p>
+      <pre class="code"><code>flutter build appbundle --release</code></pre>
+      <p>Output location:</p>
+      <pre class="code"><code>build/app/outputs/bundle/release/app-release.aab</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Points</h4>
+      <ul>
+        <li><strong>Debug APK:</strong> Larger file, includes debugging information</li>
+        <li><strong>Release APK:</strong> Optimized, smaller, ready for distribution</li>
+        <li><strong>AAB (App Bundle):</strong> Preferred for Play Store, Google optimizes for each device</li>
+        <li><strong>Split APK:</strong> Creates separate APKs for arm64-v8a, armeabi-v7a, x86_64</li>
+      </ul>
+
+      
+    </section>
+
+    <!-- INSTALL APK -->
+    <section class="content-block">
+      <h3>4. Installing APK on Mobile Device</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Method 1: Using ADB (Android Debug Bridge)</h4>
+      <pre class="code"><code>adb install build/app/outputs/flutter-apk/app-release.apk</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Method 2: Transfer APK to Device</h4>
+      <ol>
+        <li>Transfer the APK file to your device via USB, email, or cloud storage</li>
+        <li>On your device, open the APK file using File Manager</li>
+        <li>Tap <strong>Install</strong></li>
+        <li>If prompted, enable <strong>Install from Unknown Sources</strong> in Settings</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Method 3: Share APK via Cloud</h4>
+      <ol>
+        <li>Upload APK to Google Drive, Dropbox, or similar</li>
+        <li>Share link with testers</li>
+        <li>Download and install from mobile browser</li>
+      </ol>
+
+     
+    </section>
+
+    <!-- PLAY STORE -->
+    <section class="content-block">
+      <h3>5. Publishing to Google Play Store</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Prerequisites</h4>
+      <ul>
+        <li>Google Play Console Developer Account (One-time $25 fee)</li>
+        <li>Signed App Bundle (.aab file)</li>
+        <li>App icon, screenshots, and store listing assets</li>
+        <li>Privacy policy URL (required for most apps)</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 1: Create Keystore for Signing</h4>
+      <p>Generate a keystore file (keep it secure!):</p>
+      <pre class="code"><code>keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 2: Configure Signing in Android</h4>
+      <p>Create <code>android/key.properties</code>:</p>
+      <pre class="code"><code>storePassword=your-store-password
+keyPassword=your-key-password
+keyAlias=upload
+storeFile=/path/to/upload-keystore.jks</code></pre>
+
+      <p>Update <code>android/app/build.gradle</code>:</p>
+      <pre class="code"><code>android {
+    ...
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 3: Build Signed App Bundle</h4>
+      <pre class="code"><code>flutter build appbundle --release</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 4: Create App in Play Console</h4>
+      <ol>
+        <li>Go to <a href="https://play.google.com/console" target="_blank">Google Play Console</a></li>
+        <li>Click <strong>Create App</strong></li>
+        <li>Fill in app details (name, language, type, category)</li>
+        <li>Complete Store Listing (description, screenshots, icon)</li>
+        <li>Set up Content Rating and Target Audience</li>
+        <li>Add Privacy Policy URL</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 5: Upload App Bundle</h4>
+      <ol>
+        <li>Go to <strong>Release → Production</strong></li>
+        <li>Click <strong>Create New Release</strong></li>
+        <li>Upload your <code>app-release.aab</code> file</li>
+        <li>Add release notes</li>
+        <li>Review and roll out</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 6: Review Process</h4>
+      <p>After submission:</p>
+      <ul>
+        <li>Google reviews your app (usually takes 1-3 days)</li>
+        <li>You'll receive email notification about approval status</li>
+        <li>Once approved, app goes live on Play Store</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Important Notes</h4>
+      <ul>
+        <li>Keep your keystore file secure - losing it means you can't update your app</li>
+        <li>Test thoroughly before publishing</li>
+        <li>Use internal testing or closed testing tracks for initial testing</li>
+        <li>Follow Google Play policies to avoid rejection</li>
+        <li>Update app version in pubspec.yaml for each release</li>
+      </ul>
+
+    
+    </section>
+
+    <!-- RESPONSIVE UI - ORIENTATION -->
+    <section class="content-block">
+      <h3>6. Responsive UI: Different Screen Sizes and Device Orientations</h3>
+      
+      <p>This example demonstrates how to design a UI that adapts to different device orientations (portrait and landscape) using MediaQuery.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: const ResponsiveExample(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ResponsiveExample extends StatelessWidget {
+  const ResponsiveExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Check orientation
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Responsive UI - Orientation")),
+      body: Column(
+        children: [
+          // Student Info Header
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.blue[100],
+            child: const Center(
+              child: Column(
+                children: [
+                  Text(
+                    "Prashanth kumar",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Roll No: 238W1A12D4",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Orientation-based layout
+          Expanded(
+            child: isPortrait
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                          child: const Center(
+                            child: Text(
+                              "Top Section",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                          child: const Center(
+                            child: Text(
+                              "Bottom Section",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                          child: const Center(
+                            child: Text(
+                              "Left Section",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                          child: const Center(
+                            child: Text(
+                              "Right Section",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>MediaQuery.of(context).orientation:</strong> Detects current device orientation</li>
+        <li><strong>Orientation.portrait:</strong> Device is in vertical orientation</li>
+        <li><strong>Orientation.landscape:</strong> Device is in horizontal orientation</li>
+        <li><strong>Conditional Layout:</strong> Uses different layouts (Column/Row) based on orientation</li>
+      </ul>
+
+      <div class="output" style="min-height: 300px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; margin: 16px 0; padding: 20px;">
+        <p style="color: #999; font-style: italic;">[ Screenshots: Portrait and Landscape Orientations ]</p>
+      </div>
+    </section>
+
+    <!-- RESPONSIVE UI - BREAKPOINTS -->
+    <section class="content-block">
+      <h3>7. Responsive UI: MediaQuery and Layout Breakpoints</h3>
+      
+      <p>This example uses MediaQuery to check screen width and implement layout breakpoints for mobile, tablet, and desktop views.</p>
+      
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ResponsiveExample(),
+    );
+  }
+}
+
+class ResponsiveExample extends StatelessWidget {
+  const ResponsiveExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // breakpoint: <600 = mobile, >=600 = tablet/desktop
+    final isMobile = screenWidth < 600;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Responsive UI - Breakpoints")),
+      body: Column(
+        children: [
+          // Student Info Header
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.orange[100],
+            child: const Center(
+              child: Column(
+                children: [
+                  Text(
+                    "Prashanth kumar",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Roll No: 238W1A12D4",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Breakpoint-based layout
+          Expanded(
+            child: isMobile
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                          child: const Center(
+                            child: Text(
+                              "Mobile - Top",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                          child: const Center(
+                            child: Text(
+                              "Mobile - Bottom",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                          child: const Center(
+                            child: Text(
+                              "Tablet/Desktop - Left",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                          child: const Center(
+                            child: Text(
+                              "Tablet/Desktop - Right",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Concepts:</h4>
+      <ul>
+        <li><strong>MediaQuery.of(context).size.width:</strong> Gets current screen width</li>
+        <li><strong>Breakpoint 600px:</strong> Common threshold between mobile and tablet</li>
+        <li><strong>Responsive Layout:</strong> Different layouts for different screen sizes</li>
+        <li><strong>isMobile flag:</strong> Boolean to determine which layout to use</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Common Breakpoints:</h4>
+      <ul>
+        <li><strong>Mobile:</strong> &lt; 600px</li>
+        <li><strong>Tablet:</strong> 600px - 1024px</li>
+        <li><strong>Desktop:</strong> &gt; 1024px</li>
+      </ul>
+
+      <div class="output" style="min-height: 300px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; margin: 16px 0; padding: 20px;">
+        <p style="color: #999; font-style: italic;">[ Screenshots: Mobile and Tablet/Desktop Views ]</p>
+      </div>
+    </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li>Emulators provide quick testing environment without physical device</li>
+        <li>USB debugging must be enabled for physical device testing</li>
+        <li>Debug APK is for testing, release APK is for distribution</li>
+        <li>App Bundle (.aab) is the preferred format for Google Play Store</li>
+        <li>Keystore file is critical - never lose it or share it publicly</li>
+        <li>Split APKs reduce app size by creating architecture-specific builds</li>
+        <li>Google Play Console requires one-time $25 developer account fee</li>
+        <li>App review process typically takes 1-3 days before going live</li>
+        <li>MediaQuery provides device information like size, orientation, and pixel density</li>
+        <li>Orientation-based layouts adapt UI between portrait and landscape modes</li>
+        <li>Breakpoints enable different layouts for mobile, tablet, and desktop screens</li>
+        <li>Responsive design ensures apps work well across all device sizes</li>
+      </ul>
+    </section>
+
   </main>
 
   <footer class="footer container">© 2025 Academic Record</footer>

@@ -11,48 +11,339 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 3</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">← Index</a>
+      <a href="index.html">⌂ Home</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 3 — Widgets & Layouts</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 3 — Android Studio Setup & Flutter Widgets</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Stateless vs Stateful widgets.</li>
-        <li>Layouts using `Row`, `Column`, `Container`.</li>
-        <li>Styling with `ThemeData`.</li>
+        <li>Install Android Studio in Ubuntu using different methods</li>
+        <li>Create and run Dart programs in Android Studio</li>
+        <li>Understand and implement Flutter widgets: Text, Image, and Container</li>
+        <li>Display text and images using Container widget</li>
       </ol>
     </section>
 
+    <!-- ANDROID STUDIO INSTALLATION -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>class Counter extends StatefulWidget {
-  const Counter({super.key});
-  @override State<Counter> createState() => _CounterState();
-}
-class _CounterState extends State<Counter> {
-  int value = 0;
-  @override Widget build(BuildContext context) {
-    return Row(children: [
-      Text('Value: $value'),
-      ElevatedButton(onPressed: () => setState(() => value++), child: Text('Inc')),
-    ]);
-  }
-}
-</code></pre>
+      <h3>1. Installing Android Studio in Ubuntu</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Method 1: Install via Snap (Recommended for Beginners)</h4>
+      <p>This is the simplest method for installing Android Studio.</p>
+      
+      <p><strong>Step 1:</strong> Open Terminal (Ctrl + Alt + T)</p>
+      <p><strong>Step 2:</strong> Run this command:</p>
+      <pre class="code"><code>sudo snap install android-studio --classic</code></pre>
+      <p>This will automatically download and install the latest Android Studio.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Method 2: Manual Installation from Official Site</h4>
+      
+      <p><strong>Step 1: Install Java (Required)</strong></p>
+      <pre class="code"><code>sudo apt update
+sudo apt install openjdk-17-jdk</code></pre>
+
+      <p><strong>Step 2: Download Android Studio</strong></p>
+      <p>Go to: <a href="https://developer.android.com/studio" target="_blank">https://developer.android.com/studio</a></p>
+      <p>Download the Linux .tar.gz file, or use terminal:</p>
+      <pre class="code"><code>wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.2.1.21/android-studio-2023.2.1.21-linux.tar.gz</code></pre>
+
+      <p><strong>Step 3: Extract the file</strong></p>
+      <pre class="code"><code>tar -xvzf android-studio-*.tar.gz</code></pre>
+
+      <p><strong>Step 4: Move to /opt</strong></p>
+      <pre class="code"><code>sudo mv android-studio /opt/</code></pre>
+
+      <p><strong>Step 5: Launch Android Studio</strong></p>
+      <pre class="code"><code>/opt/android-studio/bin/studio.sh</code></pre>
+      <p>Follow the setup wizard to install SDK, configure emulator, etc.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Optional: Create Desktop Shortcut</h4>
+      <p>To launch it from the app menu:</p>
+      <pre class="code"><code>sudo nano /usr/share/applications/android-studio.desktop</code></pre>
+      <p>Paste the following content:</p>
+      <pre class="code"><code>[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Exec=/opt/android-studio/bin/studio.sh
+Icon=/opt/android-studio/bin/studio.png
+Categories=Development;IDE;
+Terminal=false</code></pre>
+      <p>Save and exit. Then make it executable:</p>
+      <pre class="code"><code>chmod +x /usr/share/applications/android-studio.desktop</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Verify Installation</h4>
+      <p>You can now open Android Studio from the Application menu or by running:</p>
+      <pre class="code"><code>android-studio</code></pre>
     </section>
 
+    <!-- DART IN ANDROID STUDIO -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Interactive counter screenshot.</div>
+      <h3>2. Create and Run Dart Programs in Android Studio</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 1: Install Dart Plugin in Android Studio</h4>
+      <ol>
+        <li>Open Android Studio</li>
+        <li>Go to Settings or Preferences:
+          <ul style="margin-top: 8px;">
+            <li>Linux/Ubuntu: File → Settings</li>
+            <li>Or use shortcut: Ctrl + Alt + S</li>
+          </ul>
+        </li>
+        <li>Navigate to: <strong>Plugins</strong></li>
+        <li>Search for <strong>Dart</strong> in the Marketplace</li>
+        <li>Click <strong>Install</strong></li>
+        <li>Also install <strong>Flutter plugin</strong> if you plan to use Flutter</li>
+        <li>Restart Android Studio after installation</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 2: Create a Dart Project</h4>
+      <ol>
+        <li>On the Android Studio welcome screen, click: <strong>New Project → Dart</strong></li>
+        <li>Choose: <strong>Dart Console Application</strong></li>
+        <li>Specify the project location</li>
+        <li>Set Dart SDK path (Android Studio may prompt to download if not installed)</li>
+      </ol>
+
+      <p>Or manually install Dart using:</p>
+      <pre class="code"><code>sudo apt update
+sudo apt install apt-transport-https
+sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
+sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
+sudo apt update
+sudo apt install dart</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 3: Write and Run Dart Program</h4>
+      <p>Example Dart Program:</p>
+      <pre class="code"><code>void main() {
+  print("Hello, Dart!");
+}</code></pre>
+
+      <p>To run:</p>
+      <ul>
+        <li>Click the green play button in Android Studio, or</li>
+        <li>Open terminal and run: <code>dart run</code></li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 4: Run Dart in Terminal</h4>
+      <p>To check Dart installation:</p>
+      <pre class="code"><code>dart --version</code></pre>
+      <p>Run any .dart file directly:</p>
+      <pre class="code"><code>dart hello.dart</code></pre>
     </section>
+
+    <!-- FLUTTER WIDGETS -->
+    <section class="content-block">
+      <h3>3. Flutter Widgets: Text, Image, and Container</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">1. Text Widget</h4>
+      <p>The Text widget is used to display text on the screen with customizable styling.</p>
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: Text("Text Widget Example")),
+      body: Center(
+        child: Text(
+          "Hello, Flutter!",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    ),
+  ));
+}</code></pre>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-3/text-widget.png" alt="Text Widget Output" style="width: 100%; height: auto; display: block;">
+      </div>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">2. Image Widget</h4>
+      <p>The Image widget displays images from various sources including network, assets, and files.</p>
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: Text("Image Widget Example")),
+      body: Center(
+        child: Image.network(
+          'https://picsum.photos/300/300',
+          width: 300,
+          height: 300,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return CircularProgressIndicator();
+          },
+          errorBuilder: (context, error, stackTrace) {
+            return Text('Failed to load image');
+          },
+        ),
+      ),
+    ),
+  ));
+}
+</code></pre>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-3/image-widget.png" alt="Image Widget Output" style="width: 100%; height: auto; display: block;">
+      </div>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">3. Container Widget</h4>
+      <p>The Container widget is a versatile widget that can contain padding, margins, borders, background color, and other decorations.</p>
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: Text("Container Widget Example")),
+      body: Center(
+        child: Container(
+          width: 200,
+          height: 100,
+          padding: EdgeInsets.all(16),
+          margin: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.amber,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 5,
+                offset: Offset(3, 3),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Text(
+              "This is a Container",
+              style: TextStyle(fontSize: 18, color: Colors.black),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
+}</code></pre>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-3/container.png" alt="Container Widget Output" style="width: 100%; height: auto; display: block;">
+      </div>
+    </section>
+
+    <!-- COMBINED EXAMPLE -->
+    <section class="content-block">
+      <h3>4. Display Text and Image using Container</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Create Flutter Project</h4>
+      <p><strong>Step 1:</strong> Open Android Studio</p>
+      <pre class="code"><code>/opt/android-studio/bin/studio.sh</code></pre>
+
+      <p><strong>Step 2:</strong> Create New Flutter Project</p>
+      <ul>
+        <li>ALT + F → New → New Flutter Project</li>
+        <li>Click Next, select <strong>Flutter</strong> from generators (left side)</li>
+        <li>Click Next → Enter project name</li>
+        <li>Click Create</li>
+      </ul>
+
+      <p><strong>Step 3:</strong> Open main.dart</p>
+      <p>Select <code>lib/main.dart</code> from your project (left side panel)</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Complete Code Example</h4>
+      <pre class="code"><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Text & Image in Container")),
+        body: Center(
+          child: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue, width: 2),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.network(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/320px-Flag_of_India.svg.png',
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Hello Flutter!',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+
+      <p>Replace the above code in main.dart file.</p>
+
+      <div class="output" style="padding: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-width: 500px; margin: 16px 0;">
+        <img src="outputs/week-3/allinone.png" alt="Text & Image in Container Output" style="width: 100%; height: auto; display: block;">
+      </div>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Troubleshooting: If You Encounter Errors</h4>
+      
+      <p><strong>Error 1:</strong> Missing build dependencies</p>
+      <pre class="code"><code>sudo apt update
+sudo apt install cmake ninja-build pkg-config libgtk-3-dev libblkid-dev liblzma-dev</code></pre>
+
+      <p><strong>Error 2:</strong> Missing build tools</p>
+      <pre class="code"><code>sudo apt update
+sudo apt install build-essential clang</code></pre>
+
+      <p>After installing the required dependencies, run the program again.</p>
+    </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li>Android Studio can be installed via Snap for quick setup or manually for more control</li>
+        <li>Dart and Flutter plugins are essential for Flutter development in Android Studio</li>
+        <li>Text widget is used for displaying styled text in Flutter applications</li>
+        <li>Image widget supports multiple sources: network, assets, files, and memory</li>
+        <li>Container widget provides layout, decoration, and positioning capabilities</li>
+        <li>Column widget arranges children vertically, useful for stacking elements</li>
+        <li>BoxDecoration allows styling containers with colors, borders, and shadows</li>
+        <li>Always install required Linux dependencies before running Flutter applications</li>
+      </ul>
+    </section>
+
   </main>
 
   <footer class="footer container">© 2025 Academic Record</footer>

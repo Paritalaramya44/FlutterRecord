@@ -18,34 +18,245 @@
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 2 — Dart Fundamentals</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 2 — Installations & Basic Programming Concepts</h1>
+      <div class="date">Date: December 14, 2025</div>
+      <div class="date">Name: Prashanth kumar | Roll No: 238W1A12D4</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Variables, functions, and classes in Dart.</li>
-        <li>Control flow and collections.</li>
-        <li>Null safety and async/await basics.</li>
+        <li>System Setup - Install Flutter SDK and Dart SDK on Windows/Linux machines</li>
+        <li>Set up environment variables for Flutter on your system</li>
+        <li>Verify whether the Flutter software is working properly on your machine terminal</li>
+        <li>IDE Installation - Install Android Studio or Visual Studio Code with Flutter and Dart plugins</li>
+        <li>Write and Run a Basic Dart Program using command prompt and IDE</li>
+        <li>Write a simple Dart program to understand basic syntax, data types, and control structures</li>
       </ol>
     </section>
 
+    <!-- WINDOWS INSTALLATION -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>void main() async {
-  var name = 'Student';
-  int count = 10;
-  List<int> nums = [1,2,3];
-  print('$name has $count items: $nums');
-}
-</code></pre>
+      <h3>1. Install Flutter SDK and Dart SDK on Windows</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 1: System Requirements</h4>
+      <ul>
+        <li><strong>OS:</strong> Windows 10/11, macOS, or Linux</li>
+        <li><strong>Disk space:</strong> 1.64 GB (does not include IDE/tools)</li>
+        <li><strong>Tools:</strong> Git must be installed</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 2: Download and Install Flutter</h4>
+      <ol>
+        <li>Go to the official site: <a href="https://flutter.dev/docs/get-started/install" target="_blank">https://flutter.dev/docs/get-started/install</a></li>
+        <li>Choose your OS (Windows/macOS/Linux)</li>
+        <li>Download the Flutter SDK</li>
+        <li>Extract the zip file to a suitable location (e.g., <code>C:\flutter</code>)</li>
+        <li>Add the Flutter bin directory to your system PATH</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 3: Update Windows PATH Variable</h4>
+      <p>To run Flutter commands in PowerShell, add Flutter to the PATH environment variable:</p>
+      <ol>
+        <li>Press <strong>Windows + Pause</strong> (If your keyboard lacks a Pause key, try Windows + Fn + B)</li>
+        <li>Click <strong>Advanced System Settings → Advanced → Environment Variables...</strong></li>
+        <li>In the <strong>User variables</strong> section, look for the <strong>Path</strong> entry:
+          <ul style="margin-top: 8px;">
+            <li><strong>If the entry exists:</strong> Double-click on it, then:
+              <ol style="margin-top: 4px;">
+                <li>Double-click in an empty row</li>
+                <li>Type <code>%USERPROFILE%\dev\flutter\bin</code></li>
+                <li>Click the entry and click <strong>Move Up</strong> until it's at the top</li>
+                <li>Click OK three times</li>
+              </ol>
+            </li>
+            <li><strong>If the entry doesn't exist:</strong> Click <strong>New...</strong>, then:
+              <ol style="margin-top: 4px;">
+                <li>In Variable Name box, type <code>Path</code></li>
+                <li>In Variable Value box, type <code>%USERPROFILE%\dev\flutter\bin</code></li>
+                <li>Click OK three times</li>
+              </ol>
+            </li>
+          </ul>
+        </li>
+        <li>Close and reopen any existing command prompts and PowerShell instances</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 4: Run Flutter Doctor</h4>
+      <p>The flutter doctor command validates that all components of a complete Flutter development environment are installed:</p>
+      <pre class="code"><code>PS C:> flutter doctor</code></pre>
+      <p>For detailed output, run:</p>
+      <pre class="code"><code>PS C:> flutter doctor -v</code></pre>
     </section>
 
+    <!-- LINUX INSTALLATION -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Console output demonstrating Dart basics.</div>
+      <h3>2. Install Flutter SDK and Dart SDK on Linux</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 1: System Requirements</h4>
+      <ul>
+        <li><strong>OS:</strong> Ubuntu 20.04 or later (64-bit)</li>
+        <li><strong>Disk Space:</strong> 2.8 GB (excluding IDE/tools)</li>
+        <li><strong>Tools:</strong> bash, curl, git, unzip, xz-utils, libglu1-mesa</li>
+      </ul>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 2: Install Required Dependencies</h4>
+      <pre class="code"><code>sudo apt update
+sudo apt install curl git unzip xz-utils zip libglu1-mesa -y</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 3: Download the Flutter SDK</h4>
+      <pre class="code"><code>cd ~
+curl -O https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.0-stable.tar.xz
+tar xf flutter_linux_3.22.0-stable.tar.xz</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 4: Add Flutter to PATH</h4>
+      <p>For Bash:</p>
+      <pre class="code"><code>echo 'export PATH="$HOME/flutter/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc</code></pre>
+      <p>For Zsh:</p>
+      <pre class="code"><code>echo 'export PATH="$HOME/flutter/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Step 5: Run Flutter Doctor</h4>
+      <pre class="code"><code>flutter doctor</code></pre>
     </section>
+
+    <!-- IDE INSTALLATION -->
+    <section class="content-block">
+      <h3>3. IDE Installation - Visual Studio Code</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Method 2: Using Visual Studio Code (Recommended)</h4>
+      <ol>
+        <li><strong>Install Visual Studio Code</strong> from <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a></li>
+        <li><strong>Install Dart and Flutter extensions:</strong>
+          <ul style="margin-top: 8px;">
+            <li>Go to Extensions tab (Ctrl+Shift+X)</li>
+            <li>Search for "Dart" and click Install</li>
+            <li>Search for "Flutter" and click Install</li>
+          </ul>
+        </li>
+        <li><strong>Create a Dart file:</strong>
+          <ul style="margin-top: 8px;">
+            <li>File → New File → Save as <code>main.dart</code></li>
+          </ul>
+        </li>
+        <li><strong>Write your Dart code</strong></li>
+        <li><strong>To run:</strong>
+          <ul style="margin-top: 8px;">
+            <li>Open terminal in VS Code (Ctrl+~)</li>
+            <li>Run: <code>dart main.dart</code></li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <!-- BASIC DART PROGRAM -->
+    <section class="content-block">
+      <h3>4. Write and Run a Basic Dart Program</h3>
+      
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Method 1: Using Command Line (Terminal)</h4>
+      
+      <p><strong>Step 1: Install Dart (if not using Flutter)</strong></p>
+      <ul>
+        <li>Download from: <a href="https://dart.dev/get-dart" target="_blank">https://dart.dev/get-dart</a></li>
+        <li><strong>Note:</strong> If Flutter is installed, Dart is already included</li>
+      </ul>
+
+      <p><strong>Step 2: Create and Run Dart Program</strong></p>
+      <p>Create a file named <code>hello.dart</code>:</p>
+      <pre class="code"><code>void main() {
+  print('Hello, Dart!');
+}</code></pre>
+
+      <p>Run the file:</p>
+      <pre class="code"><code>dart hello.dart</code></pre>
+
+      <div class="output">
+        <strong>Output:</strong><br>
+        Hello, Dart!
+      </div>
+    </section>
+
+    <!-- COMPREHENSIVE DART PROGRAM -->
+    <section class="content-block">
+      <h3>5. Dart Program - Basic Syntax, Data Types, and Control Structures</h3>
+      
+      <p>This program demonstrates variables, data types, control structures (if-else), loops, and functions:</p>
+      
+      <pre class="code"><code>void main() {
+  // Variables and Data Types
+  int age = 25;
+  double height = 5.9;
+  String name = 'Prashanth kumar';
+  bool isStudent = true;
+
+  print('Name: $name');
+  print('Age: $age');
+  print('Height: $height');
+  print('Is a student: $isStudent');
+
+  // Control Structure: if-else
+  if (age > 18) {
+    print('$name is an adult.');
+  } else {
+    print('$name is a minor.');
+  }
+
+  // Loops: for loop
+  print('Counting from 1 to 5:');
+  for (int i = 1; i <= 5; i++) {
+    print(i);
+  }
+
+  // Functions
+  greet(name);
+}
+
+// Function definition
+void greet(String personName) {
+  print('Hello, $personName! Welcome to Dart.');
+}</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Explanation:</h4>
+      <ul>
+        <li><strong>Variables:</strong> <code>int</code>, <code>double</code>, <code>String</code>, and <code>bool</code> data types</li>
+        <li><strong>String Interpolation:</strong> Using <code>$variable</code> to embed variables in strings</li>
+        <li><strong>Control Flow:</strong> <code>if-else</code> statement to check conditions</li>
+        <li><strong>Loops:</strong> <code>for</code> loop to iterate from 1 to 5</li>
+        <li><strong>Functions:</strong> <code>greet()</code> function with a parameter</li>
+      </ul>
+
+      <div class="output">
+        <strong>Expected Output:</strong><br>
+        Name: Prashanth kumar<br>
+        Age: 25<br>
+        Height: 5.9<br>
+        Is a student: true<br>
+        Prashanth kumar is an adult.<br>
+        Counting from 1 to 5:<br>
+        1<br>
+        2<br>
+        3<br>
+        4<br>
+        5<br>
+        Hello, Prashanth kumar! Welcome to Dart.
+      </div>
+    </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li>✅ Flutter SDK includes Dart SDK - no separate Dart installation needed when using Flutter</li>
+        <li>✅ Always run <code>flutter doctor</code> to verify installation and check for issues</li>
+        <li>✅ Adding Flutter to PATH is crucial for running commands from any terminal location</li>
+        <li>✅ VS Code with Flutter and Dart extensions provides the best development experience</li>
+        <li>✅ Dart supports strong typing with <code>int</code>, <code>double</code>, <code>String</code>, <code>bool</code></li>
+        <li>✅ String interpolation using <code>$variable</code> makes code more readable</li>
+        <li>✅ Functions in Dart are first-class objects and can be passed as parameters</li>
+      </ul>
+    </section>
+
   </main>
 
   <footer class="footer container">© 2025 Academic Record</footer>

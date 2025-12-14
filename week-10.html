@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Week 10 — Project Wrap-up</title>
+  <title>Week 10 — Working with REST APIs</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -11,35 +11,386 @@
   <header class="header container">
     <div class="brand"><div class="logo"></div> <span>Week 10</span></div>
     <nav class="nav">
-      <a href="records.html">Back to Index</a>
-      <a href="index.html">Hero</a>
+      <a href="records.html">←</a>
+      <a href="index.html">⌂</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="header-bar">
-      <h1 class="title">Week 10 — Project Wrap-up</h1>
-      <div class="date">Date: YYYY-MM-DD</div>
+      <h1 class="title">Week 10 — Working with REST APIs</h1>
+      <div class="date">Date: December 14, 2025</div>
     </div>
 
     <section class="content-block">
-      <h3>Questions</h3>
+      <h3>Learning Objectives</h3>
       <ol>
-        <li>Finalize features and polish UI.</li>
-        <li>Prepare demo and documentation.</li>
-        <li>Reflect on learnings.</li>
+        <li>Fetch and display REST API data using ListView</li>
+        <li>Display REST API data in GridView format</li>
+        <li>Implement loading states with CircularProgressIndicator</li>
+        <li>Use ListView.builder() and GridView.builder() for efficient rendering</li>
       </ol>
     </section>
 
+    <!-- SETUP -->
     <section class="content-block">
-      <h3>Code</h3>
-      <pre class="code"><code>// Showcase final feature code snippet
+      <h3>Step 1: Add HTTP Dependency</h3>
+      
+      <p>Before working with REST APIs, ensure the http package is added to your project dependencies.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">pubspec.yaml:</h4>
+      <pre class="code"><code>dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.0
 </code></pre>
+
+      <p style="margin-top: 12px;"><strong>Note:</strong> Run <code>flutter pub get</code> after adding the dependency.</p>
     </section>
 
+    <!-- LISTVIEW EXAMPLE -->
     <section class="content-block">
-      <h3>Output</h3>
-      <div class="output">Final app screenshots and notes.</div>
+      <h3>Step 2: Fetch API Data with ListView</h3>
+      
+      <p>This example demonstrates how to fetch data from a REST API and display it using ListView.builder(). The ListView is ideal for displaying data in a scrollable vertical list format.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Features:</h4>
+      <ul>
+        <li><strong>ListView.builder():</strong> Efficiently builds list items on-demand</li>
+        <li><strong>Card & ListTile:</strong> Material Design components for list items</li>
+        <li><strong>CircularProgressIndicator:</strong> Shows loading state while fetching data</li>
+        <li><strong>CircleAvatar:</strong> Displays user's first letter as avatar</li>
+        <li><strong>Dynamic Data:</strong> Fetches and displays 10 users from API</li>
+      </ul>
+
+      <pre class="code"><code>import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Fetch API Demo',
+      home: FetchApiDemo(),
+    );
+  }
+}
+
+/// Fetch API with ListView
+/// Created by: Prashanth kumar (Roll No: 238W1A12D4)
+class FetchApiDemo extends StatefulWidget {
+  @override
+  _FetchApiDemoState createState() => _FetchApiDemoState();
+}
+
+class _FetchApiDemoState extends State<FetchApiDemo> {
+  List<dynamic> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/users');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      setState(() {
+        users = jsonDecode(response.body);
+      });
+    } else {
+      throw Exception("Failed to load data");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Fetch Data from REST API"),
+        backgroundColor: Colors.teal,
+      ),
+      body: users.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Prashanth kumar",
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Roll No: 238W1A12D4",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: users.length,
+                    itemBuilder: (context, index) {
+                      final user = users[index];
+                      return Card(
+                        margin: const EdgeInsets.all(8),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Text(user['name'][0]),
+                          ),
+                          title: Text(user['name']),
+                          subtitle: Text(user['email']),
+                          trailing: Text(user['id'].toString()),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">How It Works:</h4>
+      <ol>
+        <li><strong>initState():</strong> Calls fetchUsers() when widget is created</li>
+        <li><strong>fetchUsers():</strong> Makes GET request to JSONPlaceholder API</li>
+        <li><strong>jsonDecode():</strong> Converts JSON string to List of Maps</li>
+        <li><strong>setState():</strong> Updates UI with fetched user data</li>
+        <li><strong>Conditional Rendering:</strong> Shows loading indicator if users list is empty</li>
+        <li><strong>ListView.builder():</strong> Efficiently creates list items only when visible</li>
+        <li><strong>Card & ListTile:</strong> Displays each user with avatar, name, email, and ID</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Output Features:</h4>
+      <ul>
+        <li>✅ Data fetched from REST API</li>
+        <li>✅ Displayed using ListView.builder()</li>
+        <li>✅ Shows name, email, and ID in list format</li>
+        <li>✅ Student name and roll number displayed at top</li>
+      </ul>
+
+      <div class="output" style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin: 16px 0; text-align: center;">
+        <img src="outputs/week-10/output.png" alt="ListView API Example" style="max-width: 500px; width: 100%; height: auto; border-radius: 4px;">
+      </div>
+    </section>
+
+    <!-- GRIDVIEW EXAMPLE -->
+    <section class="content-block">
+      <h3>Step 3: Display API Data with GridView</h3>
+      
+      <p>This example shows how to display the same API data in a GridView layout. GridView is perfect for displaying data in a multi-column grid format, making better use of screen space.</p>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Key Features:</h4>
+      <ul>
+        <li><strong>GridView.builder():</strong> Creates grid items efficiently on-demand</li>
+        <li><strong>SliverGridDelegate:</strong> Configures grid layout (columns, spacing)</li>
+        <li><strong>2-Column Layout:</strong> Displays data in two columns</li>
+        <li><strong>Custom Container:</strong> Styled cards with purple theme</li>
+        <li><strong>Responsive Design:</strong> Grid adapts to screen size</li>
+      </ul>
+
+      <pre class="code"><code>import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'GridView API Demo',
+      home: GridViewApiDemo(),
+    );
+  }
+}
+
+/// Fetch API with GridView
+/// Created by: Prashanth kumar (Roll No: 238W1A12D4)
+class GridViewApiDemo extends StatefulWidget {
+  @override
+  _GridViewApiDemoState createState() => _GridViewApiDemoState();
+}
+
+class _GridViewApiDemoState extends State<GridViewApiDemo> {
+  List<dynamic> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/users');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      setState(() {
+        users = jsonDecode(response.body);
+      });
+    } else {
+      throw Exception("Failed to load data");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Fetch Data - GridView"),
+        backgroundColor: Colors.deepPurple,
+      ),
+      body: users.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Prashanth kumar",
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Roll No: 238W1A12D4",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: GridView.builder(
+                    padding: const EdgeInsets.all(10),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 3 / 2,
+                    ),
+                    itemCount: users.length,
+                    itemBuilder: (context, index) {
+                      final user = users[index];
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple.shade100,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              user['name'],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              user['email'],
+                              style: const TextStyle(fontSize: 12),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+}
+</code></pre>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">GridView Configuration:</h4>
+      <ol>
+        <li><strong>crossAxisCount: 2:</strong> Creates 2 columns in the grid</li>
+        <li><strong>crossAxisSpacing: 10:</strong> Horizontal space between grid items</li>
+        <li><strong>mainAxisSpacing: 10:</strong> Vertical space between grid items</li>
+        <li><strong>childAspectRatio: 3/2:</strong> Width to height ratio of each grid item</li>
+        <li><strong>BoxDecoration:</strong> Adds rounded corners and purple background color</li>
+        <li><strong>Column Layout:</strong> Displays name and email vertically within each grid cell</li>
+      </ol>
+
+      <h4 style="color: var(--primary); margin: 16px 0 8px 0;">Comparison: ListView vs GridView:</h4>
+      <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+        <thead>
+          <tr style="background-color: #f0f0f0;">
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Feature</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">ListView</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">GridView</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;"><strong>Layout</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Single column vertical</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Multi-column grid</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;"><strong>Use Case</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Detailed list items</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Compact data, images</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;"><strong>Space Efficiency</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">More vertical scrolling</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Better use of width</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;"><strong>Best For</strong></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Messages, contacts, feeds</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Photos, products, cards</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="output" style="padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin: 16px 0; text-align: center;">
+        <img src="outputs/week-10/output.png" alt="GridView API Example" style="max-width: 500px; width: 100%; height: auto; border-radius: 4px;">
+      </div>
+    </section>
+
+    <!-- KEY TAKEAWAYS -->
+    <section class="content-block">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li><strong>ListView.builder():</strong> Efficient for long lists, builds items on-demand</li>
+        <li><strong>GridView.builder():</strong> Creates multi-column layouts with customizable grid properties</li>
+        <li><strong>SliverGridDelegate:</strong> Controls grid layout (columns, spacing, aspect ratio)</li>
+        <li><strong>Loading States:</strong> Use CircularProgressIndicator while fetching data</li>
+        <li><strong>Conditional Rendering:</strong> Show loading or data based on state</li>
+        <li><strong>API Integration:</strong> Fetch, parse JSON, and display in different layouts</li>
+        <li><strong>Material Components:</strong> Card, ListTile for ListView; Container for GridView</li>
+        <li><strong>Responsive Design:</strong> Both ListView and GridView adapt to screen size</li>
+        <li><strong>Performance:</strong> .builder() methods only create visible items for better performance</li>
+        <li><strong>Layout Choice:</strong> Use ListView for detailed items, GridView for compact display</li>
+      </ul>
     </section>
   </main>
 
